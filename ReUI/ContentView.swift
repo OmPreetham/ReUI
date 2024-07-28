@@ -8,37 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var users: [User] = []
-    @State private var products: [Product] = []
+    @State private var showingSpotify = false
     
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(products) { product in
-                    Text(product.category)
-                }
-                
-                ForEach(users) { user in
-                    Text(user.email)
-                }
-            }
-        }
-        .padding()
-        .task {
-            await getData()
-        }
-    }
-    
-    private func getData() async {
-        do {
-            users = try await DatabaseHelper().getUsers()
-            products = try await DatabaseHelper().getProducts()
-        } catch {
+        ZStack {
+            Color.black.ignoresSafeArea()
             
+            Button("Open Spotify") {
+                showingSpotify = true
+            }
+            .sheet(isPresented: $showingSpotify, content: {
+                SpotifyHomeView()
+            })
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ZStack {
+        Color.black.ignoresSafeArea()
+        
+        ContentView()
+    }
 }

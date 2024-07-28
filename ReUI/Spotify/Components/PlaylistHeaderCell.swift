@@ -31,6 +31,7 @@ struct PlaylistHeaderCell: View {
                 }
                 .foregroundStyle(.spotifyWhite)
                 .padding(16)
+                .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(LinearGradient(colors: [shadowColor.opacity(0), shadowColor], startPoint: .top, endPoint: .bottom))
                 , alignment: .bottomLeading

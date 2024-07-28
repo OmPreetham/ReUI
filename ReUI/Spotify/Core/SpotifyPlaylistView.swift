@@ -13,7 +13,6 @@ struct SpotifyPlaylistView: View {
     
     @State private var products: [Product] = []
     @State private var showHeader: Bool = false
-    @State private var offset: CGFloat = 0.0
     
     var body: some View {
         ZStack {
@@ -28,7 +27,7 @@ struct SpotifyPlaylistView: View {
                         height: 250
                     )
                     .readingFrame { frame in
-                        
+                        showHeader = frame.maxY < 150
                     }
                     
                     PlaylistDescriptionCell(
@@ -66,7 +65,8 @@ struct SpotifyPlaylistView: View {
                     .font(.headline)
                     .padding(.vertical, 20)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color.spotifyBlack)
+                    .offset(y: showHeader ? 0 : -40)
                     .opacity(showHeader ? 1 : 0)
                 
                 Image(systemName: "chevron.left")
@@ -81,6 +81,7 @@ struct SpotifyPlaylistView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .foregroundStyle(.spotifyWhite)
+            .animation(.smooth(duration: 0.7), value: showHeader)
             .frame(maxHeight: .infinity, alignment: .top)
         }
         .task {

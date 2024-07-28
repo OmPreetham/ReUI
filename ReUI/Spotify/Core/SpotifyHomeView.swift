@@ -16,6 +16,8 @@ struct SpotifyHomeView: View {
     @State private var products: [Product] = []
     @State private var productRows: [ProductRow] = []
     
+    @State private var showingPlaylist: Bool = false
+    
     var body: some View {
         ZStack {
             Color.spotifyBlack.ignoresSafeArea()
@@ -150,8 +152,11 @@ struct SpotifyHomeView: View {
                                 title: product.title
                             )
                             .asButton(.press) {
-                                
+                                showingPlaylist = true
                             }
+                            .sheet(isPresented: $showingPlaylist, content: {
+                                SpotifyPlaylistView(product: product)
+                            })
                         }
                     }
                     .padding(.horizontal, 16)
