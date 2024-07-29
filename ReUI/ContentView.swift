@@ -9,17 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showingSpotify = false
+    @State private var showingBumble = false
     
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             
-            Button("Open Spotify") {
-                showingSpotify = true
+            VStack {
+                Button("Open Spotify") {
+                    showingSpotify = true
+                }
+                .sheet(isPresented: $showingSpotify, content: {
+                    SpotifyHomeView()
+                })
+                
+                Button("Open Bumble") {
+                    showingBumble = true
+                }
+                .sheet(isPresented: $showingBumble, content: {
+                    BumbleHomeView()
+                })
+
             }
-            .sheet(isPresented: $showingSpotify, content: {
-                SpotifyHomeView()
-            })
         }
     }
 }
