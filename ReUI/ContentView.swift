@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var showingSpotify = false
     @State private var showingBumble = false
+    @State private var showingNetflix = false
     
     var body: some View {
         ZStack {
@@ -28,8 +29,14 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $showingBumble, content: {
                     BumbleHomeView()
+                })          
+                
+                Button("Open Netflix") {
+                    showingNetflix = true
+                }
+                .sheet(isPresented: $showingNetflix, content: {
+                    NetflixHomeView()
                 })
-
             }
         }
     }
